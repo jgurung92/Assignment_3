@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 3 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//--------------------------//
+// The stack data structure //
+//--------------------------//
+console.log("The stack data structure");
+
+// 1. Implement the stack data structure using the prototype (as opposed to the
+//    version we wrote in class).
+
+function Stack() {
+  // property
+  this.items = [];
+}
+
+// methods
+Stack.prototype.push = function(element) {
+    this.items.push(element);
+  };
+
+  Stack.prototype.pop = function() {
+    return this.items.pop();
+  };
+
+  Stack.prototype.peek = function() {
+    return this.items[this.items.length-1];
+  };
+
+  Stack.prototype.isEmpty = function() {
+    return this.items.length === 0;
+    //return this.size() === 0;
+  };
+
+  Stack.prototype.size = function() {
+    return this.items.length;
+  };
+
+  Stack.prototype.clear = function() {
+    this.items = [];
+  };
+
+  Stack.prototype.print = function() {
+    return console.log(this.items.toString());
+  };
+
+// methods go here using Stack.prototype.
+
+// 2. Write a simple test program that shows your stack works.
+let stack = new Stack();
+stack.push(4);
+stack.push(5);
+stack.push(8);
+stack.print();
+console.log("stack.size() === 3: " + (stack.size() === 3));
+console.log("stack.peek() === 8: " + (stack.peek() === 3));
+console.log("stack.pop() === 8: " + (stack.pop() === 8));
+console.log("stack.pop() === 5: " + (stack.pop() === 1));
+console.log("stack.pop() === 4: " + (stack.pop() === 1));
+console.log("stack.size() === 0: " + (stack.size() === 0));
+console.log("stack is empty: " + (stack.isEmpty()));
+stack.push(1);
+stack.clear();
+console.log("stack.size() === 0: " + (stack.size() === 0));
+console.log("stack.isEmpty() === true: " + (stack.isEmpty() === true));
+
+
+// 3. Add a method to Stack that returns the largest value on the stack. Return
+//    null if there are no elements on the stack. Show that your method works.
+Stack.prototype.getMax = function() {
+  if (this.size() === 0) {
+    return null;
+  }
+  var max = this.items[0];
+  for (var i = 1; i < this.items.length; i++) {
+    if (this.items[i] > max) {
+      max = this.items[i];
+    }
+  }
+  return max;
+}
+
+stack.push(4);
+stack.push(2);
+stack.push(42);
+stack.push(25);
+console.log("The max numeber is 42: " + (stack.getMax() === 42));
+
+
+
+//----------------------------------//
+// ECMAScript 6 and the Stack class //
+//----------------------------------//
+console.log("ECMAScript 6 and the Stack class");
+
+// Skip.
+
+
+
+//-------------------------------//
+// Solving problems using stacks //
+//-------------------------------//
+console.log("Solving problems using stacks");
+
+// See Project.
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. It is possible to use a stack to check if the number of parentheses in a
+//    string is balanced, meaning there are as many opening parentheses as
+//    closing ones. In addition, we can also make sure that each opening
+//    parenthesis precedes a closing parenthesis. Implement this algorithm.
+//    HINT: When encountering '(' push to the stack and when encountering ')'
+//    pop from the stack.
+
+function isBalanced(str) {
+  var stack = new Stack();
+  for(var i=0; i<str.length; i++) {
+    if (str[i] === "(") {
+      stack.push(str[i])
+    }
+    else if (str[i] === ")") {
+      if (stack.size() === 0) {
+        return false;
+      }
+      stack.pop();
+    }
+
+  }
+
+  return stack.size();
+}
+
+
+// 2. Write a simple test program that shows your implementation works.
+var stack1 = new Stack();
+stack1.push("(");
+stack1.push("(");
+stack1.push("(");
+stack1.push(")");
+stack1.push(")");
+stack1.push(")");
+
+var balance = isBalanced(stack1.items);  
+console.log("The String is balanced: " + (balance === 0));
+
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
